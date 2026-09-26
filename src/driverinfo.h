@@ -23,6 +23,7 @@
 #define __DRIVERINFO_H
 
 #include <odbc++/types.h>
+#include <stdexcept>
 
 namespace odbc {
 
