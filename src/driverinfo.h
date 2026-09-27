@@ -23,8 +23,11 @@
 #define __DRIVERINFO_H
 
 #include <odbc++/types.h>
+#include <stdexcept>
 
 namespace odbc {
+
+  using ODBCDriverInfoError = std::runtime_error;
 
   class Connection;
 

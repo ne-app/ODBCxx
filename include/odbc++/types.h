@@ -41,6 +41,10 @@ namespace std {
 };
 #endif
 
+#if !defined(ODBC_THROW)
+#define ODBC_THROW throw
+#endif
+
 #if defined(ODBCXX_QT)
 class QIODevice;
 #endif

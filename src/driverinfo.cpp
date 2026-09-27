@@ -39,6 +39,10 @@ DriverInfo::DriverInfo(Connection* con)
   supportedFunctions_(ODBCXX_OPERATOR_NEW_DEBUG(__FILE__, __LINE__) SQLUSMALLINT[ODBC3_C(SQL_API_ODBC3_ALL_FUNCTIONS_SIZE,
 						100)])
 {
+#ifdef ODBCEXCEPTIONS
+  if (!con) ODBC_THROW ODBCDriverInfoError("ODBC connection invalid, check details.");
+#endif
+
   DatabaseMetaData* md=con->getMetaData();
   majorVersion_=md->getDriverMajorVersion();
   minorVersion_=md->getDriverMinorVersion();
