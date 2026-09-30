@@ -271,7 +271,7 @@ Isql::Isql(Connection* con)
   :con_(con),termWidth_(80),
    maxRows_(0)
 {
-  rl_readline_name="isqlxx";
+  rl_readline_name=const_cast<char*>("isqlxx");
   rl_completion_entry_function=(CPPFunction)noCompletion;
   rl_initialize();
 
@@ -1006,7 +1006,7 @@ void Isql::describeCmd(const vector<string>& args)
 	    pkCols+=rs->getString(4);
 	    fkCols+=rs->getString(8);
 	    
-	    while(goon=rs->next()) {
+	    while((goon=rs->next())) {
 	      if(rs->getShort(9)==1) {
 		//this is part of another key
 		break;
@@ -1048,7 +1048,7 @@ void Isql::describeCmd(const vector<string>& args)
 	    string order=(rs->getString(10)=="A"?"ASC":"DESC");
 	    string unique=(rs->getBoolean(4)?"":"UNIQUE ");
 	    
-	    while(goon=rs->next()) {
+	    while((goon=rs->next())) {
 	      if(rs->getShort(8)==1) {
 		// part of next index
 		break;
@@ -1174,7 +1174,7 @@ void Isql::describeCmd(const vector<string>& args)
       ResultSet* procRs=md->getProcedures(catalog,schema,name);
       Deleter<ResultSet> _procRs(procRs);
       
-      if(wasProcedure=procRs->next()) {
+      if((wasProcedure=procRs->next())) {
 	do {
 	  cout << this->makeIdentifier
 	    (procRs->getString(1),procRs->getString(2),procRs->getString(3))
